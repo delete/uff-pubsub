@@ -1,6 +1,6 @@
 package client;
 
-import model.Publication;
+import model.Article;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -10,5 +10,5 @@ import java.rmi.RemoteException;
  */
 public interface IClient extends Remote{
 
-    void printPublication(Publication p) throws RemoteException;
+    void showPublication(Article p) throws RemoteException;
 }

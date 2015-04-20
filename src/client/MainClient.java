@@ -1,45 +1,26 @@
 package client;
 
-import client.Client;
-import client.IClient;
-import model.Publication;
-import server.IServer;
+import UI.MainClientGUI;
 
 import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
 
 /**
- * Created by regmoraes on 18/04/15.
+ * Created by regmoraes on 19/04/15.
  */
-public class MainClient{
+public class MainClient {
 
-    public static void main(String args[]) throws RemoteException {
+    public static MainClientGUI clientGUI;
 
-
-        if (System.getSecurityManager() == null) {
-            System.setSecurityManager(new SecurityManager());
-        }
+    public static void main(String args[]){
 
         try {
 
-            IClient client = new Client();
-            Publication publication = new Publication("Programming", "RMI", "RMI code ....");
-            Publication publication2 = new Publication("Vacation", "Cancun Resort", "Sunny ....");
+            ClientControl clientControl = new ClientControl();
 
-            Registry registry = LocateRegistry.getRegistry("localhost");
-            registry.rebind("client.Client", client);
+            clientGUI = new MainClientGUI(clientControl);
+            clientGUI.showSubscribePanel();
 
-            IServer server = (IServer) registry.lookup("server.Server");
-
-            server.subscribe(client, "Programacao");
-            server.subscribe(client, "Vacation");
-            server.publish(publication);
-            server.publish(publication2);
-
-        } catch (Exception e) {
-
-            System.out.println("Connection Error: " + e.getMessage());
+        } catch (RemoteException e) {
             e.printStackTrace();
         }
     }

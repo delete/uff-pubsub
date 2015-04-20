@@ -1,6 +1,7 @@
 package server;
 
 import client.IClient;
+import model.Article;
 import model.Publication;
 import model.Subscription;
 
@@ -31,15 +32,54 @@ public class Server extends UnicastRemoteObject implements IServer {
                 if(s.getKeyword().equals(keyword)) {
 
                     s.addSubscriber(c);
+                    break;
                 }
             }
 
-            // If keyword doesn't exist in subscriptions category
-            // create a new category and add the subscriber in the list
-            subscriptions.add(new Subscription(keyword));
-            subscriptions.get(subscriptions.size()-1).addSubscriber(c);
+        }catch (Exception e){
 
-            //System.out.println("There's no category's with this keyword for subscription :(");
+            e.printStackTrace();
+        }
+    }
+
+    private void notifySubscribers(Article a) throws RemoteException {
+
+        for(Subscription s: subscriptions){
+
+            if(s.getKeyword().equals(a.getKeyword())){
+
+                for(IClient client : s.getClients()){
+
+                    client.showPublication(a);
+                }
+            }
+        }
+    }
+
+    @Override
+    public void publish(Article a) {
+
+        try{
+
+            if(publications.isEmpty()){
+
+                publications.add(new Publication(a.getKeyword()));
+                publications.get(publications.size()-1).addArticle(a);
+
+            }else {
+
+                for (Publication p : publications) {
+
+                    if (p.getKeyword().equals(a.getKeyword())) {
+
+                        p.addArticle(a);
+                        notifySubscribers(a);
+                        break;
+                    }
+                }
+            }
+
+            updateSubscriptionsCategory(a.getKeyword());
 
         }catch (Exception e){
 
@@ -48,39 +88,49 @@ public class Server extends UnicastRemoteObject implements IServer {
     }
 
     @Override
-    public void publish(Publication p) {
+    public List<String> getSubscriptionsCategory() throws RemoteException {
 
-        try{
+        if(!subscriptions.isEmpty()){
 
-            publications.add(p);
-            notifySubscribers(p);
-
-        }catch (Exception e){
-
-            e.printStackTrace();
-        }
-    }
-
-    void notifySubscribers(Publication p){
-
-        try{
+            List<String> categorys = new ArrayList<>();
 
             for(Subscription s: subscriptions){
 
-                if(s.getKeyword().equals(p.getKeyword())){
-
-                    for(IClient client: s.getClients()){
-
-                        client.printPublication(p);
-                    }
-                }
+                categorys.add(s.getKeyword());
             }
 
-        }catch (Exception e){
+            return categorys;
 
-            System.out.println("Cannot notify subscribers: "+ e.getMessage());
-            e.printStackTrace();
+        }else {
+
+            return null;
+        }
+    }
+
+    private void updateSubscriptionsCategory(String keyword) {
+
+        if(subscriptions.isEmpty()) {
+
+            subscriptions.add(new Subscription(keyword));
+
+        } else {
+
+            if(!existentCategory(keyword)) {
+                subscriptions.add(new Subscription(keyword));
+            }
+        }
+    }
+
+    public boolean existentCategory(String keyword){
+
+        for (Subscription s : subscriptions) {
+
+            if(s.getKeyword().equals(keyword)) {
+
+                return true;
+            }
         }
 
+        return false;
     }
 }
