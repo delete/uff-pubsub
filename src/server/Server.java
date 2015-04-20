@@ -61,7 +61,7 @@ public class Server extends UnicastRemoteObject implements IServer {
 
         try{
 
-            if(publications.isEmpty()){
+            if(publications.isEmpty() || !existentPublication(a.getKeyword()) ){
 
                 publications.add(new Publication(a.getKeyword()));
                 publications.get(publications.size()-1).addArticle(a);
@@ -73,13 +73,14 @@ public class Server extends UnicastRemoteObject implements IServer {
                     if (p.getKeyword().equals(a.getKeyword())) {
 
                         p.addArticle(a);
-                        notifySubscribers(a);
+
                         break;
                     }
                 }
             }
 
             updateSubscriptionsCategory(a.getKeyword());
+            notifySubscribers(a);
 
         }catch (Exception e){
 
@@ -115,17 +116,30 @@ public class Server extends UnicastRemoteObject implements IServer {
 
         } else {
 
-            if(!existentCategory(keyword)) {
+            if(!existentSubscription(keyword)) {
                 subscriptions.add(new Subscription(keyword));
             }
         }
     }
 
-    public boolean existentCategory(String keyword){
+    public boolean existentSubscription(String keyword){
 
         for (Subscription s : subscriptions) {
 
             if(s.getKeyword().equals(keyword)) {
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public boolean existentPublication(String keyword){
+
+        for (Publication p : publications) {
+
+            if(p.getKeyword().equals(keyword)) {
 
                 return true;
             }

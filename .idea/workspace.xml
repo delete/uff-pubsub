@@ -2,9 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="82f02cec-5145-453a-bb3d-03002b7a6e38" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/model/Article.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/UI/MainClientGUI.form" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/UI/MainClientGUI.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/publish-subscriber/client/IClient.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/publish-subscriber/server/IServer.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/publish-subscriber/client/MainClient.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/publish-subscriber/server/MainServer.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/publish-subscriber/model/Publication.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/publish-subscriber/server/Server.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/publish-subscriber/model/Subscription.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/out/production/publish-subscriber/javaPolicy.policy" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/server/Server.java" afterPath="$PROJECT_DIR$/src/server/Server.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Publish-Subscriber.iws" />
@@ -41,11 +47,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Server.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Server.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/server/Server.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="109" column="17" selection-start-line="109" selection-start-column="17" selection-end-line="109" selection-end-column="17" />
+            <state vertical-scroll-proportion="0.24067797">
+              <caret line="110" column="17" selection-start-line="110" selection-start-column="17" selection-end-line="110" selection-end-column="17" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -63,10 +69,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Article.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Article.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/model/Article.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.57288134">
+            <state vertical-scroll-proportion="0.0">
               <caret line="21" column="30" selection-start-line="21" selection-start-column="30" selection-end-line="21" selection-end-column="30" />
               <folding>
                 <element signature="e#473#474#0" expanded="true" />
@@ -157,6 +163,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="regmoraes" />
+      </list>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GradleLocalSettings">
@@ -197,8 +208,8 @@
         <option value="$PROJECT_DIR$/src/UI/Teste.java" />
         <option value="$PROJECT_DIR$/src/model/Publication.java" />
         <option value="$PROJECT_DIR$/src/server/IServer.java" />
-        <option value="$PROJECT_DIR$/src/server/Server.java" />
         <option value="$PROJECT_DIR$/src/UI/MainClientGUI.java" />
+        <option value="$PROJECT_DIR$/src/server/Server.java" />
       </list>
     </option>
   </component>
@@ -789,7 +800,7 @@
       <workItem from="1429386890696" duration="7388000" />
       <workItem from="1429394302662" duration="6338000" />
       <workItem from="1429400653622" duration="21573000" />
-      <workItem from="1429461922449" duration="24718000" />
+      <workItem from="1429461922449" duration="25781000" />
     </task>
     <task id="LOCAL-00001" summary="First code commit">
       <created>1429421949765</created>
@@ -803,11 +814,17 @@
       <option name="project" value="LOCAL" />
       <updated>1429496364341</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Adição de aquivos da GUI">
+      <created>1429496597211</created>
+      <option name="number" value="00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1429496597211</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="60017000" />
+    <option name="totallyTimeSpent" value="61080000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-4" y="0" width="1374" height="741" extended-state="6" />
@@ -881,7 +898,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="First code commit" />
     <MESSAGE value="Adição de GUI" />
-    <option name="LAST_COMMIT_MESSAGE" value="Adição de GUI" />
+    <MESSAGE value="Adição de aquivos da GUI" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adição de aquivos da GUI" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1208,16 +1226,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/server/Server.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="109" column="17" selection-start-line="109" selection-start-column="17" selection-end-line="109" selection-end-column="17" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/client/ClientControl.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1259,10 +1267,20 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/model/Article.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.57288134">
+        <state vertical-scroll-proportion="0.0">
           <caret line="21" column="30" selection-start-line="21" selection-start-column="30" selection-end-line="21" selection-end-column="30" />
           <folding>
             <element signature="e#473#474#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/server/Server.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.24067797">
+          <caret line="110" column="17" selection-start-line="110" selection-start-column="17" selection-end-line="110" selection-end-column="17" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
