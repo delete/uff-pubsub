@@ -1,27 +1,36 @@
 package client;
 
+import UI.MainControl;
 import model.Article;
 import server.IServer;
 
+import java.rmi.NotBoundException;
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.rmi.server.UnicastRemoteObject;
 
 /**
- * Created by regmoraes on 18/04/15.
+ * Created by regmoraes on 20/04/15.
  */
-public class ClientControl extends UnicastRemoteObject implements IClient{
+public class ClientControl {
 
-    private IServer server;
-    Registry registry;
+    private static ClientControl instance;
+    private Remote client;
 
-    public ClientControl() throws RemoteException {
-        super();
-        initialize();
+    public static ClientControl getInstance(){
+
+        if(instance == null){
+            return new ClientControl();
+
+        }else {
+            return instance;
+        }
     }
 
-    public void initialize() {
+    public void initializeClient(String serverIP) throws RemoteException{
+
+        System.setProperty("java.security.policy","src/javaPolicy.policy");
 
         if (System.getSecurityManager() == null) {
             System.setSecurityManager(new SecurityManager());
@@ -29,29 +38,26 @@ public class ClientControl extends UnicastRemoteObject implements IClient{
 
         try {
 
-            registry = LocateRegistry.getRegistry("localhost");
-            registry.rebind("Client", this);
+            client = new Client();
 
-            server = (IServer) registry.lookup("server.Server");
+            Registry registry = LocateRegistry.getRegistry(serverIP);
+            registry.rebind("Client", client);
 
         } catch (Exception e) {
 
-            System.out.println("Connection Error: " + e.getMessage());
+           MainControl.getInstance().showErrorMessage("Cannot initiate client service");
             e.printStackTrace();
         }
     }
 
-    public IServer contactServer() {
-        return server;
+    public void notifyNewPublication(Article a){
+
+        MainControl.getInstance().notifyNewPublication(a);
     }
 
-    public IClient getClient() {
-        return this;
-    }
+    public IClient getClient() throws RemoteException, NotBoundException{
 
-    @Override
-    public void showPublication(Article p) throws RemoteException {
-
-       MainClient.clientGUI.notifyNewPublication(p);
+        Registry registry = LocateRegistry.getRegistry();
+        return (IClient) registry.lookup("Client");
     }
 }

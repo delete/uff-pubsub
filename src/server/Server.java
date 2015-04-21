@@ -18,7 +18,7 @@ public class Server extends UnicastRemoteObject implements IServer {
     List<Subscription> subscriptions = new ArrayList<>();
     List<Publication> publications = new ArrayList<>();
 
-    protected Server() throws RemoteException {
+    public Server() throws RemoteException {
         super();
     }
 
@@ -73,7 +73,6 @@ public class Server extends UnicastRemoteObject implements IServer {
                     if (p.getKeyword().equals(a.getKeyword())) {
 
                         p.addArticle(a);
-
                         break;
                     }
                 }
@@ -95,10 +94,7 @@ public class Server extends UnicastRemoteObject implements IServer {
 
             List<String> categorys = new ArrayList<>();
 
-            for(Subscription s: subscriptions){
-
-                categorys.add(s.getKeyword());
-            }
+            for(Subscription s: subscriptions) categorys.add(s.getKeyword());
 
             return categorys;
 
@@ -110,15 +106,9 @@ public class Server extends UnicastRemoteObject implements IServer {
 
     private void updateSubscriptionsCategory(String keyword) {
 
-        if(subscriptions.isEmpty()) {
+        if(subscriptions.isEmpty() || !existentSubscription(keyword) ) {
 
             subscriptions.add(new Subscription(keyword));
-
-        } else {
-
-            if(!existentSubscription(keyword)) {
-                subscriptions.add(new Subscription(keyword));
-            }
         }
     }
 

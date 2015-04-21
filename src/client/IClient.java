@@ -10,5 +10,5 @@ import java.rmi.RemoteException;
  */
 public interface IClient extends Remote{
 
-    void showPublication(Article p) throws RemoteException;
+    void showPublication(Article a) throws RemoteException;
 }

@@ -1,9 +1,9 @@
 package UI;
 
-import client.ClientControl;
 import model.Article;
 
 import javax.swing.*;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,10 +11,10 @@ import java.util.List;
 /**
  * Created by regmoraes on 19/04/15.
  */
-public class MainClientGUI extends JFrame{
+public class ClientGUI extends JFrame{
+
     private JList listArticles;
     private JPanel rootPanel;
-    private JComboBox comboBoxCategorys;
     private JButton buttonSubscribe;
     private JTextField textFieldArticleCategory;
     private JTextArea textAreaArticleContent;
@@ -23,31 +23,35 @@ public class MainClientGUI extends JFrame{
     private JLabel labelCurrentSubscriptions;
     private JList listSubscriptions;
     private JLabel labelCategory;
-    private ClientControl control;
+    private JComboBox comboBoxCategories;
+
+    public static ClientGUI instance;
     List<Article> myArticles = new ArrayList<>();
     List<String> mySubscriptions = new ArrayList<>();
     DefaultListModel listModelSubscriptions;
     DefaultListModel listModelArticles;
+    MainControl mainControl = MainControl.getInstance();
 
+    public static ClientGUI getInstance(){
 
-    public MainClientGUI(ClientControl c){
+        if(instance == null){
+            return new ClientGUI();
 
-        this.control = c;
+        }else {
+            return instance;
+        }
     }
 
-    public void showSubscribePanel() throws RemoteException {
+    public void initializeGUI(){
 
         setContentPane(rootPanel);
-        setVisible(true);
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        addListeners();
-        updateSubscriptionsCategory();
+        initializeListeners();
+        setVisible(true);
     }
 
-
-    private void addListeners(){
+    private void initializeListeners(){
 
         buttonPublish.addActionListener(actionListener -> {
 
@@ -56,16 +60,21 @@ public class MainClientGUI extends JFrame{
                     !textAreaArticleContent.getText().equals("")) {
 
                 try {
-                    publish();
+
+                    Article a = new Article(textFieldArticleCategory.getText(), textFieldArticleTitle.getText(),
+                            textAreaArticleContent.getText());
+
+                    mainControl.publish(a);
                     updateSubscriptionsCategory();
 
                 } catch (RemoteException e) {
                     e.printStackTrace();
+                } catch (NotBoundException f) {
+                    f.printStackTrace();
                 }
-
             } else {
 
-                JOptionPane.showMessageDialog(null, "Article fields must be filled");
+                mainControl.showErrorMessage("Article fields must be filled");
             }
         });
 
@@ -73,70 +82,56 @@ public class MainClientGUI extends JFrame{
 
             try {
 
-                subscribe();
-                updateMySubscriptions((String) comboBoxCategorys.getSelectedItem());
+                mainControl.subscribe((String) comboBoxCategories.getSelectedItem());
+                updateMySubscriptions((String) comboBoxCategories.getSelectedItem());
 
+            } catch (NotBoundException e) {
+                e.printStackTrace();
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
 
-        });
 
+        });
     }
 
-    public void updateMySubscriptions(String keyword) throws RemoteException {
+    private void updateMySubscriptions(String keyword) throws RemoteException {
 
         mySubscriptions.add(keyword);
-
         listModelSubscriptions = new DefaultListModel<String>();
-
-        mySubscriptions.forEach(listModelSubscriptions :: addElement);
+        mySubscriptions.forEach(listModelSubscriptions::addElement);
         listSubscriptions.setModel(listModelSubscriptions);
     }
 
-    public void updateSubscriptionsCategory() throws RemoteException {
+    private void updateSubscriptionsCategory() throws NotBoundException,RemoteException {
 
-        List<String> list = control.contactServer().getSubscriptionsCategory();
+        List<String> list = mainControl.getSubscriptionsCategory();
 
-        DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel<String>();
+        if(list != null){
 
-        list.forEach(comboBoxModel::addElement);
+            DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel<String>();
 
-        comboBoxCategorys.setModel(comboBoxModel);
-    }
+            list.forEach(comboBoxModel::addElement);
 
-    public void subscribe() throws RemoteException {
-
-        control.contactServer().subscribe(control.getClient(), (String) comboBoxCategorys.getSelectedItem());
-    }
-
-
-    public void publish() throws RemoteException {
-
-        control.contactServer().publish(new Article(textFieldArticleCategory.getText(),
-                textFieldArticleTitle.getText(), textAreaArticleContent.getText()));
+            comboBoxCategories.setModel(comboBoxModel);
+        }
     }
 
     public void notifyNewPublication(Article a){
 
-        System.out.println("FOI PESSOAL");
         myArticles.add(a);
-        updateArticlesList();
-        //JOptionPane.showMessageDialog(null, "The category have a new publication");
-
-    }
-
-    public void updateArticlesList(){
-
         listModelArticles = new DefaultListModel<String>();
 
-        for(Article a : myArticles){
+        for(Article article : myArticles){
 
-            String rowInfo = "["+a.getKeyword().toUpperCase()+"] "+a.getTitle();
+            String rowInfo = "["+article.getKeyword().toUpperCase()+"] "+article.getTitle();
 
             listModelArticles.addElement(rowInfo);
         }
 
         listArticles.setModel(listModelArticles);
+        System.out.println("Article received");
+
+
     }
 }

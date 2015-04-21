@@ -8,7 +8,6 @@ import java.util.List;
  */
 public class Publication{
 
-    private static final long serialVersionUID = 1L;
     String keyword;
     List<Article> articles;
 
