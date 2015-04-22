@@ -29,12 +29,9 @@ public class ClientGUI extends JFrame implements IGUI,IClientGUI{
     private JComboBox comboBoxCategories;
 
     public MainPubSub mainPubSub = MainPubSub.getInstance();
-    public static ClientGUI instance;
-
-    List<Article> myArticles = new ArrayList<>();
-    List<String> mySubscriptions = new ArrayList<>();
-    DefaultListModel listModelSubscriptions;
-    DefaultListModel listModelArticles;
+    private static ClientGUI instance;
+    private DefaultListModel listModelSubscriptions;
+    private DefaultListModel listModelArticles;// = new DefaultListModel<String>();
 
     public static ClientGUI getInstance(){
 
@@ -49,10 +46,14 @@ public class ClientGUI extends JFrame implements IGUI,IClientGUI{
     @Override
     public void initializeGUI(){
 
+        listModelSubscriptions = new DefaultListModel<String>();
+        listModelArticles = new DefaultListModel<String>();
+
         setContentPane(rootPanel);
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         initializeListeners();
+
         setVisible(true);
     }
 
@@ -103,9 +104,7 @@ public class ClientGUI extends JFrame implements IGUI,IClientGUI{
 
     private void updateMySubscriptions(String keyword) throws RemoteException {
 
-        mySubscriptions.add(keyword);
-        listModelSubscriptions = new DefaultListModel<String>();
-        mySubscriptions.forEach(listModelSubscriptions::addElement);
+        listModelSubscriptions.addElement(keyword);
         listSubscriptions.setModel(listModelSubscriptions);
     }
 
@@ -128,16 +127,12 @@ public class ClientGUI extends JFrame implements IGUI,IClientGUI{
     @Override
     public void showNewArticles(Article a) {
 
-        myArticles.add(a);
-        listModelArticles = new DefaultListModel<String>();
-
-        for(Article article : myArticles){
-
-            String rowInfo = "["+article.getKeyword().toUpperCase()+"] "+article.getTitle();
+            String rowInfo = "["+a.getKeyword().toUpperCase()+"] "+a.getTitle();
 
             listModelArticles.addElement(rowInfo);
-        }
 
+
+        listArticles = new JList();
         listArticles.setModel(listModelArticles);
         System.out.println("Article received");
     }
