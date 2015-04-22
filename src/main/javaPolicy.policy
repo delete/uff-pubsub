@@ -1,5 +1,5 @@
 //grant codeBase "file:/home/regmoraes/Documents/Ciência\ da\ Computação/Sistemas\ Distribuídos/Trabalhos/Publish-Subscriber/*"{
-	// Allow everything for now
+// Allow everything for now
 
 grant{
 	permission java.security.AllPermission;
