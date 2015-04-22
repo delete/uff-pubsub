@@ -1,11 +1,10 @@
 package server;
 
 import client.IClient;
-import model.Article;
-import model.Publication;
-import model.Subscription;
 
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +19,26 @@ public class Server extends UnicastRemoteObject implements IServer {
 
     public Server() throws RemoteException {
         super();
+    }
+
+    @Override
+    public void initializeServer() throws RemoteException{
+
+        System.setProperty("java.security.policy","src/main/javaPolicy.policy");
+
+        if(System.getSecurityManager()==null){
+            System.setSecurityManager(new SecurityManager());
+        }
+
+        try{
+
+            Registry registry = LocateRegistry.createRegistry(1099);
+            registry.bind("Server", this);
+
+        }catch (Exception e){
+
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -50,7 +69,7 @@ public class Server extends UnicastRemoteObject implements IServer {
 
                 for(IClient client : s.getClients()){
 
-                    client.showPublication(a);
+                    client.showNewArticles(a);
                 }
             }
         }
@@ -112,7 +131,7 @@ public class Server extends UnicastRemoteObject implements IServer {
         }
     }
 
-    public boolean existentSubscription(String keyword){
+    private boolean existentSubscription(String keyword){
 
         for (Subscription s : subscriptions) {
 
@@ -125,7 +144,7 @@ public class Server extends UnicastRemoteObject implements IServer {
         return false;
     }
 
-    public boolean existentPublication(String keyword){
+    private boolean existentPublication(String keyword){
 
         for (Publication p : publications) {
 

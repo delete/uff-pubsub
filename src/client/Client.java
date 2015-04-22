@@ -1,8 +1,13 @@
 package client;
 
-import model.Article;
+import main.MainPubSub;
+import ui.client.ClientGUI;
+import server.Article;
 
+import javax.swing.*;
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
 /**
@@ -15,8 +20,29 @@ public class Client extends UnicastRemoteObject implements IClient{
     }
 
     @Override
-    public void showPublication(Article a) throws RemoteException {
+    public void initializeClient(String serverIP) throws RemoteException {
 
-       ClientControl.getInstance().notifyNewPublication(a);
+        System.setProperty("java.security.policy", "src/main/javaPolicy.policy");
+
+        if (System.getSecurityManager() == null) {
+            System.setSecurityManager(new SecurityManager());
+        }
+
+        try {
+
+            Registry registry = LocateRegistry.getRegistry(serverIP);
+            registry.rebind("Client", this);
+
+        } catch (Exception e) {
+
+            JOptionPane.showMessageDialog(ClientGUI.getInstance().getContentPane(),"Cannot start client");
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void showNewArticles(Article a) throws RemoteException {
+
+       ClientGUI.getInstance().showNewArticles(a);
     }
 }

@@ -1,6 +1,6 @@
 package client;
 
-import model.Article;
+import server.Article;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -10,5 +10,6 @@ import java.rmi.RemoteException;
  */
 public interface IClient extends Remote{
 
-    void showPublication(Article a) throws RemoteException;
+    void initializeClient(String serverIP) throws RemoteException;
+    void showNewArticles(Article a) throws RemoteException;
 }

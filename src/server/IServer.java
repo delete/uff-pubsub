@@ -1,8 +1,6 @@
 package server;
 
 import client.IClient;
-import model.Article;
-import model.Publication;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -13,6 +11,7 @@ import java.util.List;
  */
 public interface IServer extends Remote {
 
+    void initializeServer() throws RemoteException;
     void publish(Article a) throws RemoteException;
     void subscribe(IClient c, String keyword) throws RemoteException;
     List<String> getSubscriptionsCategory() throws RemoteException;

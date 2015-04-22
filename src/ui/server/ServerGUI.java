@@ -1,11 +1,11 @@
-package UI;
+package ui.server;
 
 import javax.swing.*;
 
 /**
  * Created by regmoraes on 20/04/15.
  */
-public class ServerGUI extends JFrame{
+public class ServerGUI extends JFrame implements IServerGUI{
 
     private JPanel rootPanel;
     private JLabel labelServerStatus;
@@ -21,6 +21,7 @@ public class ServerGUI extends JFrame{
         }
     }
 
+    @Override
     public void initializeGUI(){
 
         setContentPane(rootPanel);
@@ -30,5 +31,4 @@ public class ServerGUI extends JFrame{
         labelServerStatus.setText("Server running");
         setVisible(true);
     }
-
 }

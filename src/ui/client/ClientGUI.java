@@ -1,7 +1,10 @@
-package UI;
+package ui.client;
 
-import model.Article;
-
+import main.MainPubSub;
+import ui.IGUI;
+import client.IClient;
+import server.Article;
+import server.IServer;
 import javax.swing.*;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
@@ -11,7 +14,7 @@ import java.util.List;
 /**
  * Created by regmoraes on 19/04/15.
  */
-public class ClientGUI extends JFrame{
+public class ClientGUI extends JFrame implements IGUI,IClientGUI{
 
     private JList listArticles;
     private JPanel rootPanel;
@@ -25,12 +28,13 @@ public class ClientGUI extends JFrame{
     private JLabel labelCategory;
     private JComboBox comboBoxCategories;
 
+    public MainPubSub mainPubSub = MainPubSub.getInstance();
     public static ClientGUI instance;
+
     List<Article> myArticles = new ArrayList<>();
     List<String> mySubscriptions = new ArrayList<>();
     DefaultListModel listModelSubscriptions;
     DefaultListModel listModelArticles;
-    MainControl mainControl = MainControl.getInstance();
 
     public static ClientGUI getInstance(){
 
@@ -42,6 +46,7 @@ public class ClientGUI extends JFrame{
         }
     }
 
+    @Override
     public void initializeGUI(){
 
         setContentPane(rootPanel);
@@ -51,7 +56,7 @@ public class ClientGUI extends JFrame{
         setVisible(true);
     }
 
-    private void initializeListeners(){
+    public void initializeListeners(){
 
         buttonPublish.addActionListener(actionListener -> {
 
@@ -61,20 +66,22 @@ public class ClientGUI extends JFrame{
 
                 try {
 
+                    IServer server = mainPubSub.server;
+
                     Article a = new Article(textFieldArticleCategory.getText(), textFieldArticleTitle.getText(),
                             textAreaArticleContent.getText());
 
-                    mainControl.publish(a);
+                    server.publish(a);
                     updateSubscriptionsCategory();
 
                 } catch (RemoteException e) {
                     e.printStackTrace();
-                } catch (NotBoundException f) {
-                    f.printStackTrace();
+                } catch (NotBoundException e) {
+                    e.printStackTrace();
                 }
             } else {
 
-                mainControl.showErrorMessage("Article fields must be filled");
+                //mainPubSub.showErrorMessage("Article fields must be filled");
             }
         });
 
@@ -82,16 +89,15 @@ public class ClientGUI extends JFrame{
 
             try {
 
-                mainControl.subscribe((String) comboBoxCategories.getSelectedItem());
+                IServer server = mainPubSub.server;
+                IClient client = mainPubSub.client;
+
+                server.subscribe(client, (String) comboBoxCategories.getSelectedItem());
                 updateMySubscriptions((String) comboBoxCategories.getSelectedItem());
 
-            } catch (NotBoundException e) {
-                e.printStackTrace();
             } catch (RemoteException e) {
                 e.printStackTrace();
             }
-
-
         });
     }
 
@@ -105,7 +111,9 @@ public class ClientGUI extends JFrame{
 
     private void updateSubscriptionsCategory() throws NotBoundException,RemoteException {
 
-        List<String> list = mainControl.getSubscriptionsCategory();
+        IServer server = mainPubSub.server;
+
+        List<String> list = server.getSubscriptionsCategory();
 
         if(list != null){
 
@@ -117,7 +125,8 @@ public class ClientGUI extends JFrame{
         }
     }
 
-    public void notifyNewPublication(Article a){
+    @Override
+    public void showNewArticles(Article a) {
 
         myArticles.add(a);
         listModelArticles = new DefaultListModel<String>();
@@ -131,7 +140,5 @@ public class ClientGUI extends JFrame{
 
         listArticles.setModel(listModelArticles);
         System.out.println("Article received");
-
-
     }
 }
