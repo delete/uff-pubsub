@@ -27,6 +27,7 @@ public class MainPubSub {
 
     public static void main(String args[]){
 
+        //System.setProperties("codebase","out/publish-subscriber.jar");
         SwingUtilities.invokeLater(() -> new MainGUI().initializeGUI());
     }
 }
