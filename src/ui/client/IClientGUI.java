@@ -3,6 +3,8 @@ package ui.client;
 import ui.IGUI;
 import server.Article;
 
+import java.rmi.RemoteException;
+
 /**
  * Created by regmoraes on 21/04/15.
  */

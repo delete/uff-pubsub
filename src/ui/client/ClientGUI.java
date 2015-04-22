@@ -1,14 +1,14 @@
 package ui.client;
 
-import main.MainPubSub;
-import ui.IGUI;
 import client.IClient;
+import main.MainPubSub;
 import server.Article;
 import server.IServer;
+import ui.IGUI;
+
 import javax.swing.*;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,14 +24,14 @@ public class ClientGUI extends JFrame implements IGUI,IClientGUI{
     private JTextField textFieldArticleTitle;
     private JButton buttonPublish;
     private JLabel labelCurrentSubscriptions;
-    private JList listSubscriptions;
+    public JList listSubscriptions;
     private JLabel labelCategory;
     private JComboBox comboBoxCategories;
 
     public MainPubSub mainPubSub = MainPubSub.getInstance();
     private static ClientGUI instance;
-    private DefaultListModel listModelSubscriptions;
-    private DefaultListModel listModelArticles;// = new DefaultListModel<String>();
+    private DefaultListModel<String> listModelSubscriptions = new DefaultListModel<>();
+    private DefaultListModel<String> listModelArticles = new DefaultListModel<>();
 
     public static ClientGUI getInstance(){
 
@@ -46,9 +46,6 @@ public class ClientGUI extends JFrame implements IGUI,IClientGUI{
     @Override
     public void initializeGUI(){
 
-        listModelSubscriptions = new DefaultListModel<String>();
-        listModelArticles = new DefaultListModel<String>();
-
         setContentPane(rootPanel);
         pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -57,7 +54,7 @@ public class ClientGUI extends JFrame implements IGUI,IClientGUI{
         setVisible(true);
     }
 
-    public void initializeListeners(){
+    private void initializeListeners(){
 
         buttonPublish.addActionListener(actionListener -> {
 
@@ -102,7 +99,7 @@ public class ClientGUI extends JFrame implements IGUI,IClientGUI{
         });
     }
 
-    private void updateMySubscriptions(String keyword) throws RemoteException {
+    private void updateMySubscriptions(String keyword){
 
         listModelSubscriptions.addElement(keyword);
         listSubscriptions.setModel(listModelSubscriptions);
@@ -116,7 +113,7 @@ public class ClientGUI extends JFrame implements IGUI,IClientGUI{
 
         if(list != null){
 
-            DefaultComboBoxModel comboBoxModel = new DefaultComboBoxModel<String>();
+            DefaultComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel<>();
 
             list.forEach(comboBoxModel::addElement);
 
@@ -125,15 +122,13 @@ public class ClientGUI extends JFrame implements IGUI,IClientGUI{
     }
 
     @Override
-    public void showNewArticles(Article a) {
+    public void showNewArticles(Article a){
 
-            String rowInfo = "["+a.getKeyword().toUpperCase()+"] "+a.getTitle();
+        String infoArticle = ("["+a.getKeyword().toUpperCase()+"] "+a.getTitle());
 
-            listModelArticles.addElement(rowInfo);
-
-
-        listArticles = new JList();
+        listModelArticles.addElement(infoArticle);
         listArticles.setModel(listModelArticles);
-        System.out.println("Article received");
+
+        JOptionPane.showMessageDialog(this.getContentPane(), infoArticle);//Apenas para debug
     }
 }

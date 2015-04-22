@@ -1,8 +1,7 @@
 package client;
 
-import main.MainPubSub;
-import ui.client.ClientGUI;
 import server.Article;
+import ui.client.ClientGUI;
 
 import javax.swing.*;
 import java.rmi.RemoteException;
