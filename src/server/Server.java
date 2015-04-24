@@ -14,11 +14,33 @@ import java.util.List;
  */
 public class Server extends UnicastRemoteObject implements IServer {
 
+    public static Server instance;
     List<Subscription> subscriptions = new ArrayList<>();
     List<Publication> publications = new ArrayList<>();
 
-    public Server() throws RemoteException {
+    public Server() throws RemoteException{
         super();
+    }
+
+    public static Server getInstance() throws RemoteException{
+
+        try{
+
+            if(instance == null){
+
+                instance = new Server();
+
+                return instance;
+
+            }else{
+
+                return instance;
+            }
+        }catch (RemoteException e){
+
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Override

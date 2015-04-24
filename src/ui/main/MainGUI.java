@@ -39,7 +39,7 @@ public class MainGUI extends JFrame implements IGUI {
 
             try {
 
-                mainPubSub.setServer(new Server());
+                mainPubSub.setServer(Server.getInstance());
                 mainPubSub.getServer().initializeServer();
 
                 ServerGUI.getInstance().initializeGUI();
