@@ -2,6 +2,7 @@ package client;
 
 import server.Article;
 import ui.client.ClientGUI;
+import ui.client.IClientGUI;
 
 import javax.swing.*;
 import java.rmi.RemoteException;
@@ -42,6 +43,7 @@ public class Client extends UnicastRemoteObject implements IClient{
     @Override
     public void showNewArticles(Article a) throws RemoteException {
 
-       ClientGUI.getInstance().showNewArticles(a);
+       IClientGUI clientGUI = ClientGUI.getInstance();
+        clientGUI.showNewArticles(a);
     }
 }

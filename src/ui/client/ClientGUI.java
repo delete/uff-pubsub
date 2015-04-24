@@ -16,8 +16,8 @@ import java.util.List;
  */
 public class ClientGUI extends JFrame implements IGUI,IClientGUI{
 
-    private JList listArticles;
     private JPanel rootPanel;
+    private JList listArticles;
     private JButton buttonSubscribe;
     private JTextField textFieldArticleCategory;
     private JTextArea textAreaArticleContent;
@@ -32,6 +32,7 @@ public class ClientGUI extends JFrame implements IGUI,IClientGUI{
     private static ClientGUI instance;
     private DefaultListModel<String> listModelSubscriptions = new DefaultListModel<>();
     private DefaultListModel<String> listModelArticles = new DefaultListModel<>();
+    private int i=0;
 
     public static ClientGUI getInstance(){
 
@@ -47,8 +48,9 @@ public class ClientGUI extends JFrame implements IGUI,IClientGUI{
     public void initializeGUI(){
 
         setContentPane(rootPanel);
-        pack();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        pack();
+
         initializeListeners();
 
         setVisible(true);
@@ -64,7 +66,7 @@ public class ClientGUI extends JFrame implements IGUI,IClientGUI{
 
                 try {
 
-                    IServer server = mainPubSub.server;
+                    IServer server = mainPubSub.getServer();
 
                     Article a = new Article(textFieldArticleCategory.getText(), textFieldArticleTitle.getText(),
                             textAreaArticleContent.getText());
@@ -87,8 +89,8 @@ public class ClientGUI extends JFrame implements IGUI,IClientGUI{
 
             try {
 
-                IServer server = mainPubSub.server;
-                IClient client = mainPubSub.client;
+                IServer server = mainPubSub.getServer();
+                IClient client = mainPubSub.getClient();
 
                 server.subscribe(client, (String) comboBoxCategories.getSelectedItem());
                 updateMySubscriptions((String) comboBoxCategories.getSelectedItem());
@@ -99,7 +101,7 @@ public class ClientGUI extends JFrame implements IGUI,IClientGUI{
         });
     }
 
-    private void updateMySubscriptions(String keyword){
+    public void updateMySubscriptions(String keyword){
 
         listModelSubscriptions.addElement(keyword);
         listSubscriptions.setModel(listModelSubscriptions);
@@ -107,7 +109,7 @@ public class ClientGUI extends JFrame implements IGUI,IClientGUI{
 
     private void updateSubscriptionsCategory() throws NotBoundException,RemoteException {
 
-        IServer server = mainPubSub.server;
+        IServer server = mainPubSub.getServer();
 
         List<String> list = server.getSubscriptionsCategory();
 
@@ -121,14 +123,21 @@ public class ClientGUI extends JFrame implements IGUI,IClientGUI{
         }
     }
 
+    public void update(){
+
+        i++;
+    }
+
     @Override
-    public void showNewArticles(Article a){
+    public void showNewArticles(Article a) throws RemoteException{
 
         String infoArticle = ("["+a.getKeyword().toUpperCase()+"] "+a.getTitle());
 
         listModelArticles.addElement(infoArticle);
         listArticles.setModel(listModelArticles);
 
-        JOptionPane.showMessageDialog(this.getContentPane(), infoArticle);//Apenas para debug
+        update();
+
+        JOptionPane.showMessageDialog(this.getContentPane(), i);//Apenas para debug
     }
 }

@@ -12,6 +12,5 @@ public interface IClientGUI extends IGUI {
 
     @Override
     void initializeGUI();
-
-    void showNewArticles(Article a);
+    void showNewArticles(Article a) throws RemoteException;
 }
