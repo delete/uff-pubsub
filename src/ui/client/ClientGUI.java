@@ -79,7 +79,7 @@ public class ClientGUI extends JFrame implements IGUI,IClientGUI{
                 }
             } else {
 
-                //mainPubSub.showErrorMessage("Article fields must be filled");
+                JOptionPane.showMessageDialog(this.getContentPane(), "Article fields must be filled");
             }
         });
 
