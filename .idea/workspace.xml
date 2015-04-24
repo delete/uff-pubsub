@@ -7,8 +7,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="82f02cec-5145-453a-bb3d-03002b7a6e38" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/client/Client.java" afterPath="$PROJECT_DIR$/src/client/Client.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ui/client/ClientGUI.java" afterPath="$PROJECT_DIR$/src/ui/client/ClientGUI.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ui/main/MainGUI.java" afterPath="$PROJECT_DIR$/src/ui/main/MainGUI.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/server/Server.java" afterPath="$PROJECT_DIR$/src/server/Server.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="Publish-Subscriber.iws" />
@@ -39,7 +40,7 @@
         <entry file="file://$PROJECT_DIR$/src/ui/client/ClientGUI.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="111" column="47" selection-start-line="111" selection-start-column="47" selection-end-line="111" selection-end-column="47" />
+              <caret line="33" column="82" selection-start-line="33" selection-start-column="82" selection-end-line="33" selection-end-column="82" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -78,18 +79,8 @@
       <file leaf-file-name="MainGUI.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/ui/main/MainGUI.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.44117647">
-              <caret line="41" column="57" selection-start-line="41" selection-start-column="57" selection-end-line="41" selection-end-column="57" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="IClientGUI.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/ui/client/IClientGUI.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="14" column="36" selection-start-line="14" selection-start-column="36" selection-end-line="14" selection-end-column="36" />
+            <state vertical-scroll-proportion="0.61764705">
+              <caret line="30" column="30" selection-start-line="30" selection-start-column="30" selection-end-line="30" selection-end-column="30" />
               <folding />
             </state>
           </provider>
@@ -121,7 +112,7 @@
         <entry file="file://$PROJECT_DIR$/src/client/Client.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="46" column="37" selection-start-line="46" selection-start-column="37" selection-end-line="46" selection-end-column="37" />
+              <caret line="48" column="5" selection-start-line="48" selection-start-column="5" selection-end-line="48" selection-end-column="5" />
               <folding />
             </state>
           </provider>
@@ -203,12 +194,12 @@
         <option value="$PROJECT_DIR$/src/main/javaPolicy.policy" />
         <option value="$PROJECT_DIR$/src/ui/client/ClientGUI.form" />
         <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/src/client/Client.java" />
         <option value="$PROJECT_DIR$/src/ui/client/IClientGUI.java" />
         <option value="$PROJECT_DIR$/src/main/MainPubSub.java" />
-        <option value="$PROJECT_DIR$/src/ui/client/ClientGUI.java" />
         <option value="$PROJECT_DIR$/src/server/Server.java" />
         <option value="$PROJECT_DIR$/src/ui/main/MainGUI.java" />
+        <option value="$PROJECT_DIR$/src/ui/client/ClientGUI.java" />
+        <option value="$PROJECT_DIR$/src/client/Client.java" />
       </list>
     </option>
   </component>
@@ -888,7 +879,7 @@
       <workItem from="1429751550546" duration="2388000" />
       <workItem from="1429804563863" duration="23000" />
       <workItem from="1429890686344" duration="186000" />
-      <workItem from="1429905274590" duration="6908000" />
+      <workItem from="1429905274590" duration="9036000" />
     </task>
     <task id="LOCAL-00001" summary="First code commit">
       <created>1429421949765</created>
@@ -975,7 +966,13 @@
       <option name="project" value="LOCAL" />
       <updated>1429911982388</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Server agora utiliza padraão Singleton">
+      <created>1429912369656</created>
+      <option name="number" value="00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1429912369656</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers>
       <GitHub shared="false" url="https://github.com">
         <commitMessageFormat>{id} {summary}</commitMessageFormat>
@@ -995,7 +992,7 @@
     </servers>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="129140000" />
+    <option name="totallyTimeSpent" value="131268000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1017,7 +1014,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3203125" sideWeight="0.7057101" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.32956383" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" x="-4" y="0" width="1374" height="741" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" weight="0.32956383" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" x="-4" y="33" width="1374" height="675" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3203125" sideWeight="0.2920937" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.363047" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -1088,7 +1085,8 @@
     <MESSAGE value="Tentativa de correção da issue #2 -&gt; Não resolvido" />
     <MESSAGE value="Adição de dialogo para informar quando o campo IP do Servidor está vazio" />
     <MESSAGE value="Variáveis do MainPubSub agora são acessados e setados por getters e setters" />
-    <option name="LAST_COMMIT_MESSAGE" value="Variáveis do MainPubSub agora são acessados e setados por getters e setters" />
+    <MESSAGE value="Server agora utiliza padraão Singleton" />
+    <option name="LAST_COMMIT_MESSAGE" value="Server agora utiliza padraão Singleton" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1428,6 +1426,14 @@
         <state />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/ui/client/IClientGUI.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4852941">
+          <caret line="14" column="36" selection-start-line="14" selection-start-column="36" selection-end-line="14" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/client/IClient.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1438,10 +1444,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ui/client/IClientGUI.java">
+    <entry file="file://$PROJECT_DIR$/src/server/Server.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="14" column="36" selection-start-line="14" selection-start-column="36" selection-end-line="14" selection-end-column="36" />
+          <caret line="41" column="24" selection-start-line="41" selection-start-column="24" selection-end-line="41" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/client/Client.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="48" column="5" selection-start-line="48" selection-start-column="5" selection-end-line="48" selection-end-column="5" />
           <folding />
         </state>
       </provider>
@@ -1449,26 +1463,10 @@
     <entry file="file://$PROJECT_DIR$/src/ui/client/ClientGUI.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="111" column="47" selection-start-line="111" selection-start-column="47" selection-end-line="111" selection-end-column="47" />
+          <caret line="33" column="82" selection-start-line="33" selection-start-column="82" selection-end-line="33" selection-end-column="82" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/client/Client.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="46" column="37" selection-start-line="46" selection-start-column="37" selection-end-line="46" selection-end-column="37" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/server/Server.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="41" column="24" selection-start-line="41" selection-start-column="24" selection-end-line="41" selection-end-column="24" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1500,8 +1498,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/ui/main/MainGUI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.44117647">
-          <caret line="41" column="57" selection-start-line="41" selection-start-column="57" selection-end-line="41" selection-end-column="57" />
+        <state vertical-scroll-proportion="0.61764705">
+          <caret line="30" column="30" selection-start-line="30" selection-start-column="30" selection-end-line="30" selection-end-column="30" />
           <folding />
         </state>
       </provider>

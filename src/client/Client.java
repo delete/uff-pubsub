@@ -1,5 +1,6 @@
 package client;
 
+import main.MainPubSub;
 import server.Article;
 import ui.client.ClientGUI;
 import ui.client.IClientGUI;
@@ -43,7 +44,7 @@ public class Client extends UnicastRemoteObject implements IClient{
     @Override
     public void showNewArticles(Article a) throws RemoteException {
 
-       IClientGUI clientGUI = ClientGUI.getInstance();
+        IClientGUI clientGUI = MainPubSub.getInstance().getClientGUI();
         clientGUI.showNewArticles(a);
     }
 }

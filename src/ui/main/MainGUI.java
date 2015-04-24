@@ -42,7 +42,8 @@ public class MainGUI extends JFrame implements IGUI {
                 mainPubSub.setServer(Server.getInstance());
                 mainPubSub.getServer().initializeServer();
 
-                ServerGUI.getInstance().initializeGUI();
+                mainPubSub.setServerGUI(ServerGUI.getInstance());
+                mainPubSub.getServerGUI().initializeGUI();
 
             }catch (RemoteException e){
 
@@ -65,7 +66,8 @@ public class MainGUI extends JFrame implements IGUI {
                     mainPubSub.setClient(new Client());
                     mainPubSub.getClient().initializeClient(textFieldServerIP.getText());
 
-                    ClientGUI.getInstance().initializeGUI();
+                    mainPubSub.setClientGUI(ClientGUI.getInstance());
+                    mainPubSub.getClientGUI().initializeGUI();
 
                 } catch (RemoteException e) {
 

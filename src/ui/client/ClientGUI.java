@@ -32,7 +32,6 @@ public class ClientGUI extends JFrame implements IGUI,IClientGUI{
     private static ClientGUI instance;
     private DefaultListModel<String> listModelSubscriptions = new DefaultListModel<>();
     private DefaultListModel<String> listModelArticles = new DefaultListModel<>();
-    private int i=0;
 
     public static ClientGUI getInstance(){
 
@@ -123,11 +122,6 @@ public class ClientGUI extends JFrame implements IGUI,IClientGUI{
         }
     }
 
-    public void update(){
-
-        i++;
-    }
-
     @Override
     public void showNewArticles(Article a) throws RemoteException{
 
@@ -135,9 +129,5 @@ public class ClientGUI extends JFrame implements IGUI,IClientGUI{
 
         listModelArticles.addElement(infoArticle);
         listArticles.setModel(listModelArticles);
-
-        update();
-
-        JOptionPane.showMessageDialog(this.getContentPane(), i);//Apenas para debug
     }
 }
