@@ -4,6 +4,7 @@ import client.IClient;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.rmi.server.ServerNotActiveException;
 import java.util.List;
 
 /**
@@ -15,4 +16,6 @@ public interface IServer extends Remote {
     void publish(Article a) throws RemoteException;
     void subscribe(IClient c, String keyword) throws RemoteException;
     List<String> getSubscriptionsCategory() throws RemoteException;
+    List<String> getConnectedClients() throws RemoteException;
+    void setConnectedClient(String clientIP) throws RemoteException;
 }

@@ -9,4 +9,5 @@ public interface IServerGUI extends IGUI {
 
     @Override
     void initializeGUI();
+    void showClientsIP();
 }

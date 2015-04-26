@@ -5,6 +5,7 @@ import client.IClient;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.rmi.server.ServerNotActiveException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,8 +18,9 @@ public class Server extends UnicastRemoteObject implements IServer {
     public static Server instance;
     List<Subscription> subscriptions = new ArrayList<>();
     List<Publication> publications = new ArrayList<>();
+    List<String> listConnectedClients = new ArrayList<>();
 
-    public Server() throws RemoteException{
+    private Server() throws RemoteException{
         super();
     }
 
@@ -177,5 +179,17 @@ public class Server extends UnicastRemoteObject implements IServer {
         }
 
         return false;
+    }
+
+    @Override
+    public List<String> getConnectedClients() throws RemoteException {
+
+        return listConnectedClients;
+    }
+
+    @Override
+    public void setConnectedClient(String clientIP) throws RemoteException {
+
+        listConnectedClients.add(clientIP);
     }
 }
