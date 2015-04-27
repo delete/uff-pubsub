@@ -2,6 +2,7 @@ package client;
 
 import main.MainPubSub;
 import server.Article;
+import server.IServer;
 import ui.client.ClientGUI;
 import ui.client.IClientGUI;
 
@@ -15,6 +16,8 @@ import java.rmi.server.UnicastRemoteObject;
  * Created by regmoraes on 18/04/15.
  */
 public class Client extends UnicastRemoteObject implements IClient{
+
+    String serverIP;
 
     public Client() throws RemoteException {
         super();
@@ -31,10 +34,10 @@ public class Client extends UnicastRemoteObject implements IClient{
 
         try {
 
-            Registry registry = LocateRegistry.getRegistry(serverIP);
-            registry.rebind("Client", this);
+            setServerIP(serverIP);
+            MainPubSub.getInstance().getServer(serverIP).connectToServer("Client", this, serverIP);
 
-        } catch (Exception e) {
+        }catch (Exception e) {
 
             JOptionPane.showMessageDialog(ClientGUI.getInstance().getContentPane(),"Cannot start client");
             e.printStackTrace();
@@ -46,5 +49,14 @@ public class Client extends UnicastRemoteObject implements IClient{
 
         IClientGUI clientGUI = MainPubSub.getInstance().getClientGUI();
         clientGUI.showNewArticles(a);
+    }
+
+    @Override
+    public String getServerIP() {
+        return serverIP;
+    }
+
+    public void setServerIP(String serverIP) {
+        this.serverIP = serverIP;
     }
 }

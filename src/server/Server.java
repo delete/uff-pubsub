@@ -5,7 +5,6 @@ import client.IClient;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.rmi.server.ServerNotActiveException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +30,7 @@ public class Server extends UnicastRemoteObject implements IServer {
             if(instance == null){
 
                 instance = new Server();
+                instance.initializeServer();
 
                 return instance;
 
@@ -43,6 +43,13 @@ public class Server extends UnicastRemoteObject implements IServer {
             e.printStackTrace();
             return null;
         }
+    }
+
+    @Override
+    public void connectToServer(String bindName, IClient client, String serverIP) throws RemoteException{
+
+        Registry registry = LocateRegistry.getRegistry(serverIP);
+        registry.rebind(bindName,client);
     }
 
     @Override
@@ -177,7 +184,6 @@ public class Server extends UnicastRemoteObject implements IServer {
                 return true;
             }
         }
-
         return false;
     }
 

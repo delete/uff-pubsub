@@ -8,6 +8,7 @@ import ui.client.ClientGUI;
 import ui.server.ServerGUI;
 
 import javax.swing.*;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 /**
@@ -33,14 +34,13 @@ public class MainGUI extends JFrame implements IGUI {
         setVisible(true);
     }
 
-    public void initializeListeners() {
+    public void initializeListeners(){
 
         buttonStartServer.addActionListener(actionListener -> {
 
             try {
 
                 mainPubSub.setServer(Server.getInstance());
-                mainPubSub.getServer().initializeServer();
 
                 mainPubSub.setServerGUI(ServerGUI.getInstance());
                 mainPubSub.getServerGUI().initializeGUI();
@@ -65,7 +65,7 @@ public class MainGUI extends JFrame implements IGUI {
 
                     mainPubSub.setClient(new Client());
                     mainPubSub.getClient().initializeClient(textFieldServerIP.getText());
-                    mainPubSub.getServerGUI().getClientsIP();
+                   // mainPubSub.getServerGUI().getClientsIP();
 
                     mainPubSub.setClientGUI(ClientGUI.getInstance());
                     mainPubSub.getClientGUI().initializeGUI();
