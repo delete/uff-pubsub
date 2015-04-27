@@ -30,6 +30,7 @@ public class ClientGUI extends JFrame implements IGUI,IClientGUI{
 
     public MainPubSub mainPubSub = MainPubSub.getInstance();
     private static ClientGUI instance;
+    private String serverIP;
     private DefaultListModel<String> listModelSubscriptions = new DefaultListModel<>();
     private DefaultListModel<String> listModelArticles = new DefaultListModel<>();
 
@@ -65,7 +66,7 @@ public class ClientGUI extends JFrame implements IGUI,IClientGUI{
 
                 try {
 
-                    IServer server = mainPubSub.getServer();
+                    IServer server = mainPubSub.getServer(mainPubSub.getClient().getServerIP());
 
                     Article a = new Article(textFieldArticleCategory.getText(), textFieldArticleTitle.getText(),
                             textAreaArticleContent.getText());
@@ -88,7 +89,7 @@ public class ClientGUI extends JFrame implements IGUI,IClientGUI{
 
             try {
 
-                IServer server = mainPubSub.getServer();
+                IServer server = mainPubSub.getServer(mainPubSub.getClient().getServerIP());
                 IClient client = mainPubSub.getClient();
 
                 server.subscribe(client, (String) comboBoxCategories.getSelectedItem());
@@ -96,6 +97,8 @@ public class ClientGUI extends JFrame implements IGUI,IClientGUI{
 
             } catch (RemoteException e) {
                 e.printStackTrace();
+            }catch (NotBoundException e){
+
             }
         });
     }
@@ -108,7 +111,7 @@ public class ClientGUI extends JFrame implements IGUI,IClientGUI{
 
     private void updateSubscriptionsCategory() throws NotBoundException,RemoteException {
 
-        IServer server = mainPubSub.getServer();
+        IServer server = mainPubSub.getServer(mainPubSub.getClient().getServerIP());
 
         List<String> list = server.getSubscriptionsCategory();
 
