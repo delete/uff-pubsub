@@ -1,6 +1,11 @@
 package ui.server;
 
+import main.MainPubSub;
+
 import javax.swing.*;
+import java.rmi.RemoteException;
+import java.rmi.server.ServerNotActiveException;
+import java.util.List;
 
 /**
  * Created by regmoraes on 20/04/15.
@@ -9,7 +14,10 @@ public class ServerGUI extends JFrame implements IServerGUI{
 
     private JPanel rootPanel;
     private JLabel labelServerStatus;
+    private JList listConnectedClients;
+    private JLabel labelClients;
     private static ServerGUI instance;
+    private MainPubSub mainPubSub = MainPubSub.getInstance();
 
     public static ServerGUI getInstance(){
 
@@ -30,5 +38,11 @@ public class ServerGUI extends JFrame implements IServerGUI{
 
         labelServerStatus.setText("Server running");
         setVisible(true);
+    }
+
+    @Override
+    public void showClientsIP() {
+
+
     }
 }

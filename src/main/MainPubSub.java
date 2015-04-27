@@ -7,6 +7,10 @@ import server.IServer;
 import ui.server.IServerGUI;
 
 import javax.swing.*;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 
 /**
  * Created by regmoraes on 20/04/15.
@@ -34,8 +38,17 @@ public class MainPubSub {
         SwingUtilities.invokeLater(() -> new MainGUI().initializeGUI());
     }
 
-    public static IServer getServer() {
-        return server;
+    public static IServer getServer(String serverIP) throws RemoteException, NotBoundException{
+
+        try {
+
+            Registry registry = LocateRegistry.getRegistry(serverIP);
+            return (IServer) registry.lookup("Server");
+
+        }catch (RemoteException e){
+
+            return null;
+        }
     }
 
     public static IClient getClient() {
