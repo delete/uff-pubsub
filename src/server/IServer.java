@@ -4,7 +4,6 @@ import client.IClient;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.rmi.server.ServerNotActiveException;
 import java.util.List;
 
 /**

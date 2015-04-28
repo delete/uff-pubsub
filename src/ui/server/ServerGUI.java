@@ -3,9 +3,6 @@ package ui.server;
 import main.MainPubSub;
 
 import javax.swing.*;
-import java.rmi.RemoteException;
-import java.rmi.server.ServerNotActiveException;
-import java.util.List;
 
 /**
  * Created by regmoraes on 20/04/15.

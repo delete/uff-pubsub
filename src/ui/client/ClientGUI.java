@@ -28,9 +28,8 @@ public class ClientGUI extends JFrame implements IGUI,IClientGUI{
     private JLabel labelCategory;
     private JComboBox comboBoxCategories;
 
-    public MainPubSub mainPubSub = MainPubSub.getInstance();
     private static ClientGUI instance;
-    private String serverIP;
+    private String connectedServerIP;
     private DefaultListModel<String> listModelSubscriptions = new DefaultListModel<>();
     private DefaultListModel<String> listModelArticles = new DefaultListModel<>();
 
@@ -46,6 +45,15 @@ public class ClientGUI extends JFrame implements IGUI,IClientGUI{
 
     @Override
     public void initializeGUI(){
+
+        try {
+            
+            connectedServerIP = MainPubSub.getClient().getConnectedServerIP();
+        
+        } catch (RemoteException e) {
+            
+            e.printStackTrace();
+        }
 
         setContentPane(rootPanel);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -66,7 +74,7 @@ public class ClientGUI extends JFrame implements IGUI,IClientGUI{
 
                 try {
 
-                    IServer server = mainPubSub.getServer(mainPubSub.getClient().getServerIP());
+                    IServer server = MainPubSub.getServer(connectedServerIP);
 
                     Article a = new Article(textFieldArticleCategory.getText(), textFieldArticleTitle.getText(),
                             textAreaArticleContent.getText());
@@ -89,8 +97,8 @@ public class ClientGUI extends JFrame implements IGUI,IClientGUI{
 
             try {
 
-                IServer server = mainPubSub.getServer(mainPubSub.getClient().getServerIP());
-                IClient client = mainPubSub.getClient();
+                IServer server = MainPubSub.getServer(connectedServerIP);
+                IClient client = MainPubSub.getClient();
 
                 server.subscribe(client, (String) comboBoxCategories.getSelectedItem());
                 updateMySubscriptions((String) comboBoxCategories.getSelectedItem());
@@ -111,7 +119,7 @@ public class ClientGUI extends JFrame implements IGUI,IClientGUI{
 
     private void updateSubscriptionsCategory() throws NotBoundException,RemoteException {
 
-        IServer server = mainPubSub.getServer(mainPubSub.getClient().getServerIP());
+        IServer server = MainPubSub.getServer(connectedServerIP);
 
         List<String> list = server.getSubscriptionsCategory();
 

@@ -1,7 +1,6 @@
 package server;
 
 import client.IClient;
-import com.sun.istack.internal.Nullable;
 
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -49,7 +48,7 @@ public class Server extends UnicastRemoteObject implements IServer {
     public void connectToServer(String bindName, IClient client, String serverIP) throws RemoteException{
 
         Registry registry = LocateRegistry.getRegistry(serverIP);
-        registry.rebind(bindName,client);
+        registry.rebind(bindName, client);
     }
 
     @Override
@@ -57,7 +56,7 @@ public class Server extends UnicastRemoteObject implements IServer {
 
         System.setProperty("java.security.policy","src/main/javaPolicy.policy");
 
-        if(System.getSecurityManager()==null){
+        if(System.getSecurityManager() == null){
             System.setSecurityManager(new SecurityManager());
         }
 

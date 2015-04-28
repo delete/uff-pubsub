@@ -1,7 +1,7 @@
 package ui.client;
 
-import ui.IGUI;
 import server.Article;
+import ui.IGUI;
 
 import java.rmi.RemoteException;
 

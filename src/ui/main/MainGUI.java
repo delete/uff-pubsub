@@ -8,7 +8,6 @@ import ui.client.ClientGUI;
 import ui.server.ServerGUI;
 
 import javax.swing.*;
-import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 /**
@@ -20,7 +19,6 @@ public class MainGUI extends JFrame implements IGUI {
     private JButton buttonStartServer;
     private JTextField textFieldServerIP;
     private JPanel rootPanel;
-    private MainPubSub mainPubSub = MainPubSub.getInstance();
 
     @Override
     public void initializeGUI() {
@@ -40,10 +38,10 @@ public class MainGUI extends JFrame implements IGUI {
 
             try {
 
-                mainPubSub.setServer(Server.getInstance());
+                MainPubSub.setServer(Server.getInstance());
 
-                mainPubSub.setServerGUI(ServerGUI.getInstance());
-                mainPubSub.getServerGUI().initializeGUI();
+                MainPubSub.setServerGUI(ServerGUI.getInstance());
+                MainPubSub.getServerGUI().initializeGUI();
 
             } catch (RemoteException e) {
 
@@ -63,12 +61,11 @@ public class MainGUI extends JFrame implements IGUI {
 
                 try {
 
-                    mainPubSub.setClient(new Client());
-                    mainPubSub.getClient().initializeClient(textFieldServerIP.getText());
-                   // mainPubSub.getServerGUI().getClientsIP();
+                    MainPubSub.setClient(new Client());
+                    MainPubSub.getClient().initializeClient(textFieldServerIP.getText());
 
-                    mainPubSub.setClientGUI(ClientGUI.getInstance());
-                    mainPubSub.getClientGUI().initializeGUI();
+                    MainPubSub.setClientGUI(ClientGUI.getInstance());
+                    MainPubSub.getClientGUI().initializeGUI();
 
                 } catch (RemoteException e) {
 

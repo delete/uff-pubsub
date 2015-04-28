@@ -2,14 +2,11 @@ package client;
 
 import main.MainPubSub;
 import server.Article;
-import server.IServer;
 import ui.client.ClientGUI;
 import ui.client.IClientGUI;
 
 import javax.swing.*;
 import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
 /**
@@ -34,8 +31,8 @@ public class Client extends UnicastRemoteObject implements IClient{
 
         try {
 
-            setServerIP(serverIP);
-            MainPubSub.getInstance().getServer(serverIP).connectToServer("Client", this, serverIP);
+            MainPubSub.getServer(serverIP).connectToServer("Client", this, serverIP);
+            setConnectedServerIP(serverIP);
 
         }catch (Exception e) {
 
@@ -52,11 +49,11 @@ public class Client extends UnicastRemoteObject implements IClient{
     }
 
     @Override
-    public String getServerIP() {
+    public String getConnectedServerIP() {
         return serverIP;
     }
 
-    public void setServerIP(String serverIP) {
+    private void setConnectedServerIP(String serverIP) {
         this.serverIP = serverIP;
     }
 }

@@ -12,5 +12,5 @@ public interface IClient extends Remote{
 
     void initializeClient(String serverIP) throws RemoteException;
     void showNewArticles(Article a) throws RemoteException;
-    String getServerIP() throws RemoteException;
+    String getConnectedServerIP() throws RemoteException;
 }

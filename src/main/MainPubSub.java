@@ -1,9 +1,9 @@
 package main;
 
-import ui.client.IClientGUI;
-import ui.main.MainGUI;
 import client.IClient;
 import server.IServer;
+import ui.client.IClientGUI;
+import ui.main.MainGUI;
 import ui.server.IServerGUI;
 
 import javax.swing.*;
