@@ -1,6 +1,7 @@
 package server;
 
 import client.IClient;
+import com.sun.istack.internal.Nullable;
 
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -17,7 +18,6 @@ public class Server extends UnicastRemoteObject implements IServer {
     public static Server instance;
     List<Subscription> subscriptions = new ArrayList<>();
     List<Publication> publications = new ArrayList<>();
-    List<String> listConnectedClients = new ArrayList<>();
 
     private Server() throws RemoteException{
         super();
@@ -185,17 +185,5 @@ public class Server extends UnicastRemoteObject implements IServer {
             }
         }
         return false;
-    }
-
-    @Override
-    public List<String> getConnectedClients() throws RemoteException {
-
-        return listConnectedClients;
-    }
-
-    @Override
-    public void setConnectedClient(String clientIP) throws RemoteException {
-
-        listConnectedClients.add(clientIP);
     }
 }
