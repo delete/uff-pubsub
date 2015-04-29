@@ -99,7 +99,7 @@ public class Server extends UnicastRemoteObject implements IServer {
 
                 for(IClient client : s.getClients()){
 
-                    client.showNewArticles(a);
+                    client.notifyNewArticle(a);
                 }
             }
         }

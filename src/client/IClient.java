@@ -12,6 +12,7 @@ import java.rmi.RemoteException;
 public interface IClient extends Remote{
 
     void initializeClient(String serverIP) throws RemoteException, ServerNotFoundException;
-    void showNewArticles(Article a) throws RemoteException;
+    void notifyNewArticle(Article a) throws RemoteException;
+    void getArticles(String keyword) throws RemoteException;
     String getConnectedServerIP() throws RemoteException;
 }

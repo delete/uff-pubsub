@@ -3,10 +3,8 @@ package client;
 import main.MainPubSub;
 import server.Article;
 import server.ServerNotFoundException;
-import ui.client.ClientGUI;
 import ui.client.IClientGUI;
 
-import javax.swing.*;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 
@@ -41,10 +39,16 @@ public class Client extends UnicastRemoteObject implements IClient{
     }
 
     @Override
-    public void showNewArticles(Article a) throws RemoteException {
+    public void notifyNewArticle(Article a) throws RemoteException {
 
-        IClientGUI clientGUI = MainPubSub.getInstance().getClientGUI();
+        IClientGUI clientGUI = MainPubSub.getClientGUI();
         clientGUI.showNewArticles(a);
+    }
+
+    @Override
+    public void getArticles(String keyword) throws RemoteException {
+
+
     }
 
     @Override
