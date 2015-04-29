@@ -5,8 +5,10 @@ import server.Article;
 import server.ServerNotFoundException;
 import ui.client.IClientGUI;
 
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.List;
 
 /**
  * Created by regmoraes on 18/04/15.
@@ -46,9 +48,9 @@ public class Client extends UnicastRemoteObject implements IClient{
     }
 
     @Override
-    public void getArticles(String keyword) throws RemoteException {
+    public List<Article> getArticles(String keyword) throws RemoteException, NotBoundException {
 
-
+        return MainPubSub.getServer(serverIP).getArticles(keyword);
     }
 
     @Override
