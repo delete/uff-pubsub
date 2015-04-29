@@ -46,8 +46,7 @@ public class MainGUI extends JFrame implements IGUI {
 
             } catch (RemoteException e) {
 
-                JOptionPane.showMessageDialog(this.getContentPane(),
-                        "Cannot Start Server");
+                JOptionPane.showMessageDialog(this.getContentPane(), "Cannot Start Server");
                 e.printStackTrace();
             }
         });
@@ -69,7 +68,7 @@ public class MainGUI extends JFrame implements IGUI {
 
                 } catch (ServerNotFoundException e) {
 
-                    JOptionPane.showMessageDialog(this.getContentPane(), "Cannot start client, try a valid IP.");;
+                    JOptionPane.showMessageDialog(this.getContentPane(), "Cannot start client, try a valid IP.");
                 }
                 catch (RemoteException e){
                     e.printStackTrace();

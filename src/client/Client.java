@@ -44,7 +44,7 @@ public class Client extends UnicastRemoteObject implements IClient{
     public void notifyNewArticle(Article a) throws RemoteException {
 
         IClientGUI clientGUI = MainPubSub.getClientGUI();
-        clientGUI.showNewArticles(a);
+        clientGUI.notifyNewArticle(a);
     }
 
     @Override

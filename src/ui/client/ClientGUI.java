@@ -9,6 +9,7 @@ import ui.IGUI;
 import javax.swing.*;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,16 +18,16 @@ import java.util.List;
 public class ClientGUI extends JFrame implements IGUI,IClientGUI{
 
     private JPanel rootPanel;
-    private JList listArticles;
+    private JList<String> listArticles;
     private JButton buttonSubscribe;
     private JTextField textFieldArticleCategory;
     private JTextArea textAreaArticleContent;
     private JTextField textFieldArticleTitle;
     private JButton buttonPublish;
     private JLabel labelCurrentSubscriptions;
-    public JList listSubscriptions;
+    public JList<String> listSubscriptions;
     private JLabel labelCategory;
-    private JComboBox comboBoxCategories;
+    private JComboBox<String> comboBoxCategories;
 
     private static ClientGUI instance;
     private String connectedServerIP;
@@ -109,6 +110,25 @@ public class ClientGUI extends JFrame implements IGUI,IClientGUI{
 
             }
         });
+
+        listSubscriptions.addListSelectionListener(selectionListener ->{
+
+            if (!selectionListener.getValueIsAdjusting()) {
+
+                try {
+
+                    showArticles(MainPubSub.getClient().getArticles(listSubscriptions.getSelectedValue()));
+
+                }catch (RemoteException e){
+
+                    e.printStackTrace();
+
+                }catch (NotBoundException e){
+
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     public void updateMySubscriptions(String keyword){
@@ -133,12 +153,23 @@ public class ClientGUI extends JFrame implements IGUI,IClientGUI{
         }
     }
 
-    @Override
-    public void showNewArticles(Article a) throws RemoteException{
+    private void showArticles(List<Article> articles){
 
-        String infoArticle = ("["+a.getKeyword().toUpperCase()+"] "+a.getTitle());
+        String articleInfo;
+        listModelArticles = new DefaultListModel<>();
 
-        listModelArticles.addElement(infoArticle);
+        for(Article a : articles) {
+
+            articleInfo = ("["+ a.getKeyword().toUpperCase()+"] "+ a.getTitle());
+            listModelArticles.addElement(articleInfo);
+        }
         listArticles.setModel(listModelArticles);
+    }
+
+    @Override
+    public void notifyNewArticle(Article a) {
+
+        String articleInfo = ("New Article! \n Category:"+ a.getKeyword().toUpperCase()+"\n Title: "+ a.getTitle());
+        JOptionPane.showMessageDialog(this.getContentPane(), articleInfo);
     }
 }
