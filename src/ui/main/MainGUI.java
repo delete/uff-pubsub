@@ -3,6 +3,7 @@ package ui.main;
 import client.Client;
 import main.MainPubSub;
 import server.Server;
+import server.ServerNotFoundException;
 import ui.IGUI;
 import ui.client.ClientGUI;
 import ui.server.ServerGUI;
@@ -63,13 +64,14 @@ public class MainGUI extends JFrame implements IGUI {
 
                     MainPubSub.setClient(new Client());
                     MainPubSub.getClient().initializeClient(textFieldServerIP.getText());
-
                     MainPubSub.setClientGUI(ClientGUI.getInstance());
                     MainPubSub.getClientGUI().initializeGUI();
 
-                } catch (RemoteException e) {
+                } catch (ServerNotFoundException e) {
 
-                    JOptionPane.showMessageDialog(this.getContentPane(), "Cannot start client");
+                    JOptionPane.showMessageDialog(this.getContentPane(), "Cannot start client, try a valid IP.");;
+                }
+                catch (RemoteException e){
                     e.printStackTrace();
                 }
             }

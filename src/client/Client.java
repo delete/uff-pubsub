@@ -2,6 +2,7 @@ package client;
 
 import main.MainPubSub;
 import server.Article;
+import server.ServerNotFoundException;
 import ui.client.ClientGUI;
 import ui.client.IClientGUI;
 
@@ -21,7 +22,7 @@ public class Client extends UnicastRemoteObject implements IClient{
     }
 
     @Override
-    public void initializeClient(String serverIP) throws RemoteException {
+    public void initializeClient(String serverIP) throws RemoteException, ServerNotFoundException {
 
         System.setProperty("java.security.policy", "src/main/javaPolicy.policy");
 
@@ -35,9 +36,7 @@ public class Client extends UnicastRemoteObject implements IClient{
             setConnectedServerIP(serverIP);
 
         }catch (Exception e) {
-
-            JOptionPane.showMessageDialog(ClientGUI.getInstance().getContentPane(),"Cannot start client");
-            e.printStackTrace();
+            throw new ServerNotFoundException();
         }
     }
 
