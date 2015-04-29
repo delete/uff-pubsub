@@ -15,5 +15,6 @@ public interface IServer extends Remote {
     void publish(Article a) throws RemoteException;
     void subscribe(IClient c, String keyword) throws RemoteException;
     List<String> getSubscriptionsCategory() throws RemoteException;
+    List<Article> getArticles(String keyword) throws RemoteException;
     void connectToServer(String bindName,IClient client,String serverIP) throws RemoteException;
 }

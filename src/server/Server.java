@@ -91,6 +91,19 @@ public class Server extends UnicastRemoteObject implements IServer {
         }
     }
 
+    @Override
+    public List<Article> getArticles(String keyword) throws RemoteException {
+
+        for(Publication p : publications ){
+
+            if(p.getKeyword().equals(keyword)){
+
+                return p.getArticles();
+            }
+        }
+        return null;
+    }
+
     private void notifySubscribers(Article a) throws RemoteException {
 
         for(Subscription s: subscriptions){
