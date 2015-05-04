@@ -170,6 +170,7 @@ public class ClientGUI extends JFrame implements IGUI,IClientGUI{
     public void notifyNewArticle(Article a) {
 
         String articleInfo = ("New Article! \n Category:"+ a.getKeyword().toUpperCase()+"\n Title: "+ a.getTitle());
-        JOptionPane.showMessageDialog(this.getContentPane(), articleInfo);
+        System.out.println(articleInfo);
+        //JOptionPane.showMessageDialog(this.getContentPane(), articleInfo);
     }
 }
