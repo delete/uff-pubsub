@@ -60,11 +60,17 @@ public class MainGUI extends JFrame implements IGUI {
             } else {
 
                 try {
+                    if(MainPubSub.getClient() != null){
 
-                    MainPubSub.setClient(new Client());
-                    MainPubSub.getClient().initializeClient(textFieldServerIP.getText());
-                    MainPubSub.setClientGUI(ClientGUI.getInstance());
-                    MainPubSub.getClientGUI().initializeGUI();
+                        JOptionPane.showMessageDialog(this.getContentPane(), "There is already a client running in this machine.");
+
+                    }else {
+
+                        MainPubSub.setClient(new Client());
+                        MainPubSub.getClient().initializeClient(textFieldServerIP.getText());
+                        MainPubSub.setClientGUI(ClientGUI.getInstance());
+                        MainPubSub.getClientGUI().initializeGUI();
+                    }
 
                 } catch (ServerNotFoundException e) {
 
