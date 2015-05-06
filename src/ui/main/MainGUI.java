@@ -9,6 +9,7 @@ import ui.client.ClientGUI;
 import ui.server.ServerGUI;
 
 import javax.swing.*;
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 
 /**
@@ -77,6 +78,8 @@ public class MainGUI extends JFrame implements IGUI {
                     JOptionPane.showMessageDialog(this.getContentPane(), "Cannot start client, try a valid IP.");
                 }
                 catch (RemoteException e){
+                    e.printStackTrace();
+                } catch (NotBoundException e) {
                     e.printStackTrace();
                 }
             }
