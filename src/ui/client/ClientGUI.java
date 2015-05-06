@@ -87,7 +87,7 @@ public class ClientGUI extends JFrame implements IGUI,IClientGUI{
                             textAreaArticleContent.getText());
 
                     server.publish(a);
-                    //updateSubscriptionsCategory();
+                    updateSubscriptionsCategory();
 
                 } catch (RemoteException e) {
                     e.printStackTrace();
