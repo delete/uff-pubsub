@@ -1,10 +1,13 @@
 package server;
 
 import client.IClient;
+import main.MainPubSub;
 
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.rmi.server.RemoteServer;
+import java.rmi.server.ServerNotActiveException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +18,7 @@ import java.util.List;
 public class Server extends UnicastRemoteObject implements IServer {
 
     public static Server instance;
+    private List<String> clients = new ArrayList<>();
     List<Subscription> subscriptions = new ArrayList<>();
     List<Publication> publications = new ArrayList<>();
 
@@ -49,6 +53,14 @@ public class Server extends UnicastRemoteObject implements IServer {
 
         Registry registry = LocateRegistry.getRegistry(serverIP);
         registry.rebind(bindName, client);
+        try {
+
+            clients.add(RemoteServer.getClientHost());
+            MainPubSub.getServerGUI().notifyNewClient(clients);
+
+        } catch (ServerNotActiveException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
