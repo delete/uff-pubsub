@@ -14,4 +14,5 @@ public interface IClientGUI extends IGUI {
     @Override
     void initializeGUI();
     void notifyNewArticle(Article a);
+    void notifyNewCategory(String category);
 }
