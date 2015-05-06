@@ -3,6 +3,7 @@ package server;
 import client.IClient;
 import main.MainPubSub;
 
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -155,6 +156,7 @@ public class Server extends UnicastRemoteObject implements IServer {
             updateSubscriptionsCategory(a.getKeyword());
             notifySubscribers(a);
 
+
         }catch (Exception e){
 
             e.printStackTrace();
@@ -178,11 +180,12 @@ public class Server extends UnicastRemoteObject implements IServer {
         }
     }
 
-    private void updateSubscriptionsCategory(String keyword) {
+    private void updateSubscriptionsCategory(String keyword) throws RemoteException, NotBoundException {
 
         if(subscriptions.isEmpty() || !existentSubscription(keyword) ) {
 
             subscriptions.add(new Subscription(keyword));
+            notifyNewCategory();
         }
     }
 
@@ -209,5 +212,17 @@ public class Server extends UnicastRemoteObject implements IServer {
             }
         }
         return false;
+    }
+
+    private void notifyNewCategory() throws RemoteException, NotBoundException {
+
+        IClient client = (IClient) LocateRegistry.getRegistry().lookup("Client");
+
+            client.notifyNewCategory();
+
+        /*for(IClient client : Registry.){
+
+            client.notifyNewArticle(a);
+        }*/
     }
 }

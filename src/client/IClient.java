@@ -17,4 +17,5 @@ public interface IClient extends Remote{
     void notifyNewArticle(Article a) throws RemoteException;
     List<Article> getArticles(String keyword) throws RemoteException, NotBoundException;
     String getConnectedServerIP() throws RemoteException;
+    void notifyNewCategory() throws RemoteException, NotBoundException;
 }

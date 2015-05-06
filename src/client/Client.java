@@ -58,6 +58,12 @@ public class Client extends UnicastRemoteObject implements IClient{
         return serverIP;
     }
 
+    @Override
+    public void notifyNewCategory() throws RemoteException, NotBoundException {
+
+        MainPubSub.getClientGUI().notifyNewCategory();
+    }
+
     private void setConnectedServerIP(String serverIP) {
         this.serverIP = serverIP;
     }

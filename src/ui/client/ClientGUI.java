@@ -9,7 +9,6 @@ import ui.IGUI;
 import javax.swing.*;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -45,7 +44,7 @@ public class ClientGUI extends JFrame implements IGUI,IClientGUI{
     }
 
     @Override
-    public void initializeGUI(){
+    public void initializeGUI() throws NotBoundException, RemoteException {
 
         try {
             
@@ -61,6 +60,13 @@ public class ClientGUI extends JFrame implements IGUI,IClientGUI{
         pack();
 
         initializeListeners();
+        try {
+            updateSubscriptionsCategory();
+        } catch (NotBoundException e) {
+            e.printStackTrace();
+        } catch (RemoteException e) {
+            e.printStackTrace();
+        }
 
         setVisible(true);
     }
@@ -81,7 +87,7 @@ public class ClientGUI extends JFrame implements IGUI,IClientGUI{
                             textAreaArticleContent.getText());
 
                     server.publish(a);
-                    updateSubscriptionsCategory();
+                    //updateSubscriptionsCategory();
 
                 } catch (RemoteException e) {
                     e.printStackTrace();
@@ -182,5 +188,22 @@ public class ClientGUI extends JFrame implements IGUI,IClientGUI{
         String articleInfo = ("New Article! \n Category:"+ a.getKeyword().toUpperCase()+"\n Title: "+ a.getTitle());
         System.out.println(articleInfo);
         //JOptionPane.showMessageDialog(this.getContentPane(), articleInfo);
+    }
+
+    @Override
+    public void notifyNewCategory() throws NotBoundException, RemoteException {
+
+        try {
+            
+            updateSubscriptionsCategory();
+        
+        } catch (NotBoundException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        
+        } catch (RemoteException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
     }
 }

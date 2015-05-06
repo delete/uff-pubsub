@@ -3,6 +3,7 @@ package ui.client;
 import server.Article;
 import ui.IGUI;
 
+import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
 public interface IClientGUI extends IGUI {
 
     @Override
-    void initializeGUI();
+    void initializeGUI() throws NotBoundException, RemoteException;
     void notifyNewArticle(Article a);
-    void notifyNewCategory(String category);
+    void notifyNewCategory() throws NotBoundException, RemoteException;
 }
