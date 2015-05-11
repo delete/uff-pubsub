@@ -11,6 +11,5 @@ public interface IServerGUI extends IGUI {
 
     @Override
     void initializeGUI();
-    void showClientsIP();
     void notifyNewClient(List<String> client);
 }

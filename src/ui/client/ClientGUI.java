@@ -112,12 +112,12 @@ public class ClientGUI extends JFrame implements IGUI,IClientGUI{
 
             } catch (RemoteException e) {
                 e.printStackTrace();
-            }catch (NotBoundException e){
+            } catch (NotBoundException e) {
 
             }
         });
 
-        listSubscriptions.addListSelectionListener(selectionListener ->{
+        listSubscriptions.addListSelectionListener(selectionListener -> {
 
             if (!selectionListener.getValueIsAdjusting()) {
 
@@ -125,11 +125,11 @@ public class ClientGUI extends JFrame implements IGUI,IClientGUI{
 
                     showArticles(MainPubSub.getClient().getArticles(listSubscriptions.getSelectedValue()));
 
-                }catch (RemoteException e){
+                } catch (RemoteException e) {
 
                     e.printStackTrace();
 
-                }catch (NotBoundException e){
+                } catch (NotBoundException e) {
 
                     e.printStackTrace();
                 }
@@ -141,6 +141,23 @@ public class ClientGUI extends JFrame implements IGUI,IClientGUI{
 
         listModelSubscriptions.addElement(keyword);
         listSubscriptions.setModel(listModelSubscriptions);
+    }
+
+    @Override
+    public void notifyNewCategory() throws NotBoundException, RemoteException {
+
+        try {
+            
+            updateSubscriptionsCategory();
+        
+        } catch (NotBoundException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        
+        } catch (RemoteException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+        }
     }
 
     private void updateSubscriptionsCategory() throws NotBoundException,RemoteException {
@@ -157,19 +174,6 @@ public class ClientGUI extends JFrame implements IGUI,IClientGUI{
 
             comboBoxCategories.setModel(comboBoxModel);
         }
-    }
-
-    private void showArticles(List<Article> articles){
-
-        String articleInfo;
-        listModelArticles = new DefaultListModel<>();
-
-        for(Article a : articles) {
-
-            articleInfo = ("["+ a.getKeyword().toUpperCase()+"] "+ a.getTitle());
-            listModelArticles.addElement(articleInfo);
-        }
-        listArticles.setModel(listModelArticles);
     }
 
     @Override
@@ -190,20 +194,16 @@ public class ClientGUI extends JFrame implements IGUI,IClientGUI{
         //JOptionPane.showMessageDialog(this.getContentPane(), articleInfo);
     }
 
-    @Override
-    public void notifyNewCategory() throws NotBoundException, RemoteException {
+    private void showArticles(List<Article> articles){
 
-        try {
-            
-            updateSubscriptionsCategory();
-        
-        } catch (NotBoundException e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
-        
-        } catch (RemoteException e) {
-            System.out.println(e.getMessage());
-            e.printStackTrace();
+        String articleInfo;
+        listModelArticles = new DefaultListModel<>();
+
+        for(Article a : articles) {
+
+            articleInfo = ("["+ a.getKeyword().toUpperCase()+"] "+ a.getTitle());
+            listModelArticles.addElement(articleInfo);
         }
+        listArticles.setModel(listModelArticles);
     }
 }

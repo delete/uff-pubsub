@@ -50,9 +50,4 @@ public class ServerGUI extends JFrame implements IServerGUI{
         setVisible(true);
     }
 
-    @Override
-    public void showClientsIP() {
-
-
-    }
 }

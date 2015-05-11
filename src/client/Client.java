@@ -40,6 +40,10 @@ public class Client extends UnicastRemoteObject implements IClient{
         }
     }
 
+    private void setConnectedServerIP(String serverIP) {
+        this.serverIP = serverIP;
+    }
+
     @Override
     public void notifyNewArticle(Article a) throws RemoteException {
 
@@ -64,7 +68,4 @@ public class Client extends UnicastRemoteObject implements IClient{
         MainPubSub.getClientGUI().notifyNewCategory();
     }
 
-    private void setConnectedServerIP(String serverIP) {
-        this.serverIP = serverIP;
-    }
 }

@@ -67,7 +67,7 @@ public class Server extends UnicastRemoteObject implements IServer {
     @Override
     public void initializeServer() throws RemoteException{
 
-        System.setProperty("java.security.policy","src/main/javaPolicy.policy");
+        System.setProperty("java.security.policy", "src/main/javaPolicy.policy");
 
         if(System.getSecurityManager() == null){
             System.setSecurityManager(new SecurityManager());
@@ -117,19 +117,6 @@ public class Server extends UnicastRemoteObject implements IServer {
         return null;
     }
 
-    private void notifySubscribers(Article a) throws RemoteException {
-
-        for(Subscription s: subscriptions){
-
-            if(s.getKeyword().equals(a.getKeyword())){
-
-                for(IClient client : s.getClients()){
-
-                    client.notifyNewArticle(a);
-                }
-            }
-        }
-    }
 
     @Override
     public void publish(Article a) {
@@ -163,6 +150,62 @@ public class Server extends UnicastRemoteObject implements IServer {
         }
     }
 
+    private boolean existentPublication(String keyword){
+
+        for (Publication p : publications) {
+
+            if(p.getKeyword().equals(keyword)) {
+
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void updateSubscriptionsCategory(String keyword) throws RemoteException, NotBoundException {
+
+        if(subscriptions.isEmpty() || !existentSubscription(keyword) ) {
+
+            subscriptions.add(new Subscription(keyword));
+            notifyNewCategory();
+        }
+    }
+
+    private void notifySubscribers(Article a) throws RemoteException {
+
+        for(Subscription s: subscriptions){
+
+            if(s.getKeyword().equals(a.getKeyword())){
+
+                for(IClient client : s.getClients()){
+
+                    client.notifyNewArticle(a);
+                }
+            }
+        }
+    }
+
+    private boolean existentSubscription(String keyword){
+
+        for (Subscription s : subscriptions) {
+
+            if(s.getKeyword().equals(keyword)) {
+
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private void notifyNewCategory() throws RemoteException, NotBoundException {
+
+        IClient client = (IClient) LocateRegistry.getRegistry().lookup("Client");
+
+        client.notifyNewCategory();
+    }
+
+
     @Override
     public List<String> getSubscriptionsCategory() throws RemoteException {
 
@@ -180,49 +223,4 @@ public class Server extends UnicastRemoteObject implements IServer {
         }
     }
 
-    private void updateSubscriptionsCategory(String keyword) throws RemoteException, NotBoundException {
-
-        if(subscriptions.isEmpty() || !existentSubscription(keyword) ) {
-
-            subscriptions.add(new Subscription(keyword));
-            notifyNewCategory();
-        }
-    }
-
-    private boolean existentSubscription(String keyword){
-
-        for (Subscription s : subscriptions) {
-
-            if(s.getKeyword().equals(keyword)) {
-
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    private boolean existentPublication(String keyword){
-
-        for (Publication p : publications) {
-
-            if(p.getKeyword().equals(keyword)) {
-
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private void notifyNewCategory() throws RemoteException, NotBoundException {
-
-        IClient client = (IClient) LocateRegistry.getRegistry().lookup("Client");
-
-            client.notifyNewCategory();
-
-        /*for(IClient client : Registry.){
-
-            client.notifyNewArticle(a);
-        }*/
-    }
 }
